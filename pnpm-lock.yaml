@@ -26,6 +26,9 @@ importers:
       '@wagmi/chains':
         specifier: ^1.8.0
         version: 1.8.0(typescript@5.8.3)
+      '@wagmi/core':
+        specifier: ^2.17.3
+        version: 2.17.3(@tanstack/query-core@5.81.2)(@types/react@19.1.8)(react@18.2.0)(typescript@5.8.3)(use-sync-external-store@1.4.0(react@18.2.0))(viem@2.31.4(bufferutil@4.0.9)(typescript@5.8.3)(utf-8-validate@5.0.10)(zod@3.22.4))
       next:
         specifier: 15.3.4
         version: 15.3.4(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
