@@ -2,10 +2,9 @@
 
 import InputField from "./ui/InputField";
 import { useState } from "react";
-import { chainsToTSender } from "@/constants";
+import { chainsToTSender, tsenderAbi, erc20Abi } from "@/constants";
 import { useChainId, useConfig, useAccount, useWriteContract } from "wagmi";
 import { readContract, waitForTransactionReceipt } from "@wagmi/core";
-import { erc20Abi } from "@/constants";
 import { useMemo } from "react";
 import { calculateTotal } from "@/utils";
 
@@ -59,6 +58,30 @@ function AirdropForm() {
         hash: approvalHash,
       });
       console.log("approvalReceipt", approvalReceipt);
+
+      await writeContractAsync({
+        abi: tsenderAbi,
+        address: tSenderAddress as `0x${string}`,
+        functionName: "airdropERC20",
+        args: [
+          tokenAddress,
+          recipients.split(/[,\n]+/).map(addr => addr.trim()).filter(addr => addr !== ''),
+          amount.split(/[,\n]+/).map(amt => amt.trim()).filter(amt => amt !== ''),
+          BigInt(total),
+        ],
+      })
+    } else {
+        await writeContractAsync({
+            abi: tsenderAbi,
+            address: tSenderAddress as `0x${string}`,
+            functionName: "airdropERC20",
+            args: [
+              tokenAddress,
+              recipients.split(/[,\n]+/).map(addr => addr.trim()).filter(addr => addr !== ''),
+              amount.split(/[,\n]+/).map(amt => amt.trim()).filter(amt => amt !== ''),
+              BigInt(total),
+          ],
+        })
     }
   }
 
