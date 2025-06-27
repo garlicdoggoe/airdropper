@@ -6,6 +6,8 @@ import { chainsToTSender } from "@/constants";
 import { useChainId, useConfig, useAccount } from "wagmi";
 import { readContract } from "@wagmi/core";
 import { erc20Abi } from "@/constants";
+import { useMemo } from "react";
+import { calculateTotal } from "@/utils";
 
 function AirdropForm() {
   const [tokenAddress, setTokenAddress] = useState("");
@@ -14,6 +16,7 @@ function AirdropForm() {
   const chainId = useChainId();
   const config = useConfig();
   const account = useAccount();
+  useMemo(() => console.log(calculateTotal(amount)), [amount])
 
   async function getApprovalAmount(
     tSenderAddress: string | null
@@ -43,7 +46,8 @@ function AirdropForm() {
     // Get contract address
     const tSenderAddress = chainsToTSender[chainId]["tsender"];
     const approvedAmount = await getApprovalAmount(tSenderAddress);
-    console.log(approvedAmount);
+    
+    // if (result < totalAmountNeeded)
   }
 
   return (
