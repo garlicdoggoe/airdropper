@@ -14,7 +14,9 @@ export default function RootLayout(props: { children: ReactNode }) {
       <body>
         <Providers>
           <Header />
-          {props.children}
+          <main className="pt-[77px]">
+            {props.children}
+          </main>
         </Providers>
       </body>
     </html>
