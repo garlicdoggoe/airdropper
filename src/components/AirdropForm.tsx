@@ -3,8 +3,8 @@
 import InputField from "./ui/InputField";
 import { useState } from "react";
 import { chainsToTSender } from "@/constants";
-import { useChainId, useConfig, useAccount } from "wagmi";
-import { readContract } from "@wagmi/core";
+import { useChainId, useConfig, useAccount, useWriteContract } from "wagmi";
+import { readContract, waitForTransactionReceipt } from "@wagmi/core";
 import { erc20Abi } from "@/constants";
 import { useMemo } from "react";
 import { calculateTotal } from "@/utils";
@@ -16,7 +16,8 @@ function AirdropForm() {
   const chainId = useChainId();
   const config = useConfig();
   const account = useAccount();
-  useMemo(() => console.log(calculateTotal(amount)), [amount])
+  const total: number = useMemo(() => calculateTotal(amount), [amount]);
+  const { data: hash, isPending, writeContractAsync } = useWriteContract();
 
   async function getApprovalAmount(
     tSenderAddress: string | null
@@ -47,7 +48,18 @@ function AirdropForm() {
     const tSenderAddress = chainsToTSender[chainId]["tsender"];
     const approvedAmount = await getApprovalAmount(tSenderAddress);
     
-    // if (result < totalAmountNeeded)
+    if (approvedAmount < total) {
+      const approvalHash = await writeContractAsync({
+        abi: erc20Abi,
+        address: tokenAddress as `0x${string}`,
+        functionName: "approve",
+        args: [tSenderAddress as `0x${string}`, BigInt(total)],
+      });
+      const approvalReceipt = await waitForTransactionReceipt(config, {
+        hash: approvalHash,
+      });
+      console.log("approvalReceipt", approvalReceipt);
+    }
   }
 
   return (
