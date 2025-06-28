@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { type ReactNode } from "react";
-import { Providers } from "./providers";
+import { Providers } from "../provider/providers";
 import Header from "@/components/Header";
 
 export const metadata: Metadata = {
@@ -10,11 +10,11 @@ export const metadata: Metadata = {
 
 export default function RootLayout(props: { children: ReactNode }) {
   return (
-    <html lang="en">
+    <html lang="en" className="dark">
       <body>
         <Providers>
           <Header />
-          <main className="pt-[77px]">
+          <main>
             {props.children}
           </main>
         </Providers>

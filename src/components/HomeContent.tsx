@@ -2,6 +2,7 @@
 
 import AirdropForm from "@/components/AirdropForm";
 import { useAccount } from "wagmi";
+import Landing from "@/components/Landing";
 
 export default function HomeContent() {
     const { isConnected } = useAccount();
@@ -10,10 +11,10 @@ export default function HomeContent() {
         <div>
             {isConnected ? (
                 <div>
-                    <AirdropForm />
+                    {/* <AirdropForm /> */}
                 </div>
             ) : (
-                <h1>Please connect your wallet</h1>
+                <Landing />
             )}
         </div>
     );
