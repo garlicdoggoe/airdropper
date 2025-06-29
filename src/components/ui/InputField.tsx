@@ -24,12 +24,12 @@ const InputField: React.FC<InputFieldProps> = ({
     value,
     onChange,
     className:
-      "p-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm placeholder:text-gray-400 text-gray-900 min-h-[40px] min-w-[200px]",
+      "p-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm placeholder:text-gray-400 text-white min-h-[40px] min-w-[200px]",
   };
 
   return (
     <div className="flex flex-col space-y-1 w-full my-5">
-      <label className="text-sm font-medium text-gray-700">{label}</label>
+      <label className="text-sm font-medium text-white font-semibold mb-2">{label}</label>
       {large ? (
         <textarea
           {...commonProps}

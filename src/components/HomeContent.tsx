@@ -11,7 +11,7 @@ export default function HomeContent() {
         <div>
             {isConnected ? (
                 <div>
-                    {/* <AirdropForm /> */}
+                    <AirdropForm />
                 </div>
             ) : (
                 <Landing />
